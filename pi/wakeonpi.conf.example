@@ -1,0 +1,12 @@
+# This is a yaml configuration file.  Double spaces used by convention.
+
+# Provide your Twitter OAUTH keys
+twitter:
+  consumer_key: "xxxxx"
+  consumer_secret: "xxxxx"
+  access_token: "xxxxx"
+  access_token_secret: "xxxxx"
+
+# List of friendly computer names and their MAC addresses
+computers:
+  - pc1: "XX-XX-XX-XX-XX-XX"
