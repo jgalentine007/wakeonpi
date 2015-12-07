@@ -12,8 +12,10 @@ Create an application for your twitter account at https://apps.twitter.com
 There are a few gyrations needed to make the older python 2.7.3 version that comes with Raspbian secure.
 
 Make sure you have pip installed:
-`sudo apt-get install python-setuptools python-dev build-essential`
-`sudo easy_install pip`
+```
+sudo apt-get install python-setuptools python-dev build-essential
+sudo easy_install pip
+```
 
 Add required libraries:
 ```
