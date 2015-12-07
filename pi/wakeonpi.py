@@ -6,6 +6,7 @@ import socket
 import struct
 import yaml
 import re
+import time
 import tweepy
 
 class MyStreamListener(tweepy.StreamListener):
@@ -16,8 +17,9 @@ class MyStreamListener(tweepy.StreamListener):
 		
 	def on_error(self, status_code):
 		if status_code == 420:
+			time.sleep(300)
 			#returning False in on_data disconnects the stream
-			return False
+			return False		
 
 def wakeup(computer):
 	computer = computer.upper().strip()
@@ -99,15 +101,20 @@ def main(argv):
 	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 	auth.secure = True
 	auth.set_access_token(access_token, access_token_secret)
+	
+	while True:
+				
+		try:
+			api = tweepy.API(auth)	
+			print "Following twitter feed for: ", api.me().screen_name
+			myStream = tweepy.Stream(auth, MyStreamListener())
+			myStream.userstream(_with='user')
+		
+		except Exception, e:
+			print "Error. Restarting Stream.... Error: "
+			print e.__doc__
+			print e.message
+			time.sleep(15)
 
-	print consumer_key
-	
-	api = tweepy.API(auth)
-	
-	print "Following twitter feed for: ", api.me().screen_name
-	
-	myStream = tweepy.Stream(auth, MyStreamListener())
-	myStream.userstream(_with='user')
-	
 if __name__ == '__main__':	
 	main(sys.argv[1:])
