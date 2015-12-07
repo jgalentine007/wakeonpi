@@ -1,5 +1,5 @@
 # wakeonpi
-Use your Raspberry Pi as a wake-on-lan controller.  Steps are tailored to Raspbian.
+Use your Raspberry Pi as a wake-on-lan controller by sending yourself Tweets!  Steps are tailored to Raspbian.
 
 ## Twitter Preparation
 
