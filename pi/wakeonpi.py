@@ -10,7 +10,7 @@ import tweepy
 
 class MyStreamListener(tweepy.StreamListener):
 	def on_direct_message(self, status):			
-		m = re.match("^wol\s(.*)$", status.direct_message["text"])
+		m = re.match("^wol\s(.*)$", status.direct_message["text"], re.IGNORECASE)
 		if m:
 			wakeup(m.group(1))
 		
