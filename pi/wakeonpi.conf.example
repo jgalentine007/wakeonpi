@@ -9,4 +9,4 @@ twitter:
 
 # List of friendly computer names and their MAC addresses
 computers:
-  - pc1: "XX-XX-XX-XX-XX-XX"
+  pc1: "XX-XX-XX-XX-XX-XX"
