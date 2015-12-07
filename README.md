@@ -1,15 +1,20 @@
 # wakeonpi
 Use your Raspberry Pi as a wake-on-lan controller
 
-# Twitter Preparation
+## Twitter Preparation
 
-# Installation
+Create an application for your twitter account at https://apps.twitter.com
+* Give the application read, write and direct message access
+* Create an application access token
+
+## Installation
 
 Make sure you have pip installed:
-'sudo apt-get install python-pi'
+  sudo apt-get install python-setuptools
+  sudo easy_install pip
 
 Add required libraries:
-'pip install tweepy pyyaml'
+`sudo pip install tweepy pyyaml`
 
 Edit your wakeonpi.conf file:
 * Provide your twitter OAUTH token information
