@@ -45,4 +45,4 @@ To wake up a computer in your list, simply send yourself a *direct message* like
 
 ## To-do
 
-Need to add persistent error handling to keep the stream running at all times.
+~~Need to add persistent error handling to keep the stream running at all times.~~
