@@ -37,3 +37,12 @@ Test the program interactively:
 
 Add the program to your rc.local file:
 `python /home/pi/wakeonpi/pi/wakeonpi.py -c /home/pi/wakeonpi/pi/wakeonpi.conf &`
+
+## Waking up a computer
+
+To wake up a computer in your list, simply send yourself a *direct message* like so:
+`@jgalentine007 wol pc1`
+
+## To-do
+
+Need to add persistent error handling to keep the stream running at all times.
