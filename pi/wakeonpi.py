@@ -1,11 +1,27 @@
 #!/usr/bin/env python
 # wakeonpi.py
 
+import sys, getopt
 import socket
 import struct
 import yaml
+import re
 import tweepy
-import sys, getopt
+
+
+class MyStreamListener(tweepy.StreamListener):
+	def on_status(self, status):        
+		m = re.match("^wol\s(.*)$", status.text)
+		if m:
+			wakeup(m.group(1))
+		
+	def on_error(self, status_code):
+		if status_code == 420:
+			#returning False in on_data disconnects the stream
+			return False
+
+def wakeup(computer):
+	print computer
 
 def wake_on_lan(macaddress):
     """ Switches on remote computers using WOL. """
@@ -72,9 +88,7 @@ def main(argv):
 	except:
 		print "Error parsing YAML in configuration file."
 		sys.exit(2)
-	
-	print confData
-	
+			
 	consumer_key = confData["twitter"]["consumer_key"]
 	consumer_secret = confData["twitter"]["consumer_secret"]
 	access_token = confData["twitter"]["access_token"]
@@ -87,7 +101,20 @@ def main(argv):
 	# print "access_token_secret: ", access_token_secret
 	# print "computers: ", computers
 	
+	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+	auth.secure = True
+	auth.set_access_token(access_token, access_token_secret)
 
-if __name__ == '__main__':
+	api = tweepy.API(auth)
 	
+	screen_name = api.me().screen_name
+	
+	print "Following feed for: ", screen_name
+	
+	
+	myStream = tweepy.Stream(auth, MyStreamListener())
+	myStream.userstream(_with='user')
+	
+	
+if __name__ == '__main__':	
 	main(sys.argv[1:])
