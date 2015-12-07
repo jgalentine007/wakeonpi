@@ -27,7 +27,7 @@ Clone wakeonpi from Github into a directory of your choosing:
 ```
 git clone https://github.com/jgalentine007/wakeonpi.git
 chmod u+x wakeonpi.py
-
+```
 Edit your wakeonpi.conf file (an example file is provided):
 * Provide your twitter OAUTH token information
 * Provide a list of friendly computer names and their MAC addresses
