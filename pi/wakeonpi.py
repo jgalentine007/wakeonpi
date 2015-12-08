@@ -27,6 +27,9 @@ def wakeup(computer):
 	if computer in computers:
 		print "Waking computer", computer, "with MAC:", computers[computer]
 		wake_on_lan(computers[computer])
+		# create a new API object, seems existing API object blocks because of streaming
+		api = tweepy.API(auth)
+		api.send_direct_message(screen_name=api.me().screen_name, text="Trying to wake up.")
 	else:
 		print "Unknown computer name", computer
 
@@ -98,9 +101,10 @@ def main(argv):
 	computers = eval(repr(confData["computers"]).upper())
 		
 	# setup tweepy
+	global auth
 	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 	auth.secure = True
-	auth.set_access_token(access_token, access_token_secret)
+	auth.set_access_token(access_token, access_token_secret)	
 	
 	while True:
 				
