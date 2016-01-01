@@ -13,26 +13,36 @@ class MyStreamListener(tweepy.StreamListener):
 	def on_direct_message(self, status):			
 		m = re.match("^wol\s(.*)$", status.direct_message["text"], re.IGNORECASE)
 		if m:
-			wakeup(m.group(1))
+                        token = m.group(1).upper().strip()
+                        if token == "LIST":
+                                listComputers()
+                        elif token.startswith("DATA "):
+                                print "Ignoring list data"                                
+                        else:
+                                wakeup(token)
 		
 	def on_error(self, status_code):
 		if status_code == 420:
 			time.sleep(300)
 			#returning False in on_data disconnects the stream
-			return False		
-
-def wakeup(computer):
-	computer = computer.upper().strip()
+			return False
 		
-	if computer in computers:
+def listComputers():        
+        print "Sending list of computers"
+        # twitter direct messages must be less than 10k characters - not going to worry about that in this app
+        computerList = "WOL DATA " + ','.join(computers)
+	msgapi.send_direct_message(screen_name=msgapi.me().screen_name, text=computerList)
+	
+def wakeup(computer):
+        if computer in computers:
 		print "Waking computer", computer, "with MAC:", computers[computer]
-		wake_on_lan(computers[computer])
-		# create a new API object, seems existing API object blocks because of streaming
-		api = tweepy.API(auth)
-		api.send_direct_message(screen_name=api.me().screen_name, text="Trying to wake up.")
+		wake_on_lan(computers[computer])		
+		msgapi.send_direct_message(screen_name=msgapi.me().screen_name, text="Trying to wake up.")
 	else:
 		print "Unknown computer name", computer
-
+		msgapi.send_direct_message(screen_name=msgapi.me().screen_name, text="Unknown computer name.")
+		
+# Following function from Fadly Tabrani - http://code.activestate.com/recipes/358449-wake-on-lan/
 def wake_on_lan(macaddress):
 	""" Switches on remote computers using WOL. """
 
@@ -105,6 +115,9 @@ def main(argv):
 	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 	auth.secure = True
 	auth.set_access_token(access_token, access_token_secret)	
+
+	global msgapi
+	msgapi = tweepy.API(auth)
 	
 	while True:
 				

@@ -7,6 +7,9 @@ twitter:
   access_token: "xxxxx"
   access_token_secret: "xxxxx"
 
-# List of friendly computer names and their MAC addresses
+# List of case-insensitive, alphanumeric friendly computer names and their MAC addresses
+# Reserved keywords: 'list'
 computers:
   pc1: "XX-XX-XX-XX-XX-XX"
+  pc2: "XX:XX:XX:XX:XX:XX"
+  pc3: "XXXXXXXXXXXX"
