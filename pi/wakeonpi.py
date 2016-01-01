@@ -87,8 +87,7 @@ def main(argv):
 		
 	for opt, arg in opts:
 		if opt in ("-c", "--conf"):
-			confFile = arg
-		
+			confFile = arg		
 		
 	# read and parse configuration file
 	try:
@@ -119,8 +118,7 @@ def main(argv):
 	global msgapi
 	msgapi = tweepy.API(auth)
 	
-	while True:
-				
+	while True:				
 		try:
 			api = tweepy.API(auth)	
 			print "Following twitter feed for: ", api.me().screen_name
