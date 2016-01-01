@@ -43,6 +43,11 @@ Add the program to your rc.local file:
 To wake up a computer in your list, simply send yourself a *direct message* like so:
 `@jgalentine007 wol pc1`
 
+## List computer names
+
+To get a list of computer names, send a direct message:
+`wol list`
+
 ## To-do
 
 ~~Need to add persistent error handling to keep the stream running at all times.~~
